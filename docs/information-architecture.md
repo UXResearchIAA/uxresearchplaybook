@@ -681,3 +681,332 @@ Used for: Supplementary framing for the governance section — taxonomy, governa
 ### Practitioner knowledge
 
 Content model structure for method pages, SOP section organization, homepage entry-point evaluation, MVP scoping decisions, and risk identification draw on general practitioner experience and cannot be attributed to a single source. Where a specific claim requires sourcing (sample sizes, study durations), it is either cited or marked for team review rather than asserted as fact.
+
+---
+
+## 16 IA Review
+
+*Added post-proposal · August 2026 · For product owner review before visual design begins*
+
+A designer's read of the proposal — not a developer audit. Organized around the four primary user entry points: Homepage, Decide (Method Finder), Operate (method/SOP pages), and Retrieve (templates/resources), plus Method Library browsing, MVP method coverage, and open decisions.
+
+---
+
+### R01 Homepage — Text Wireframe
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ UX Research Playbook              [Search ________________________] │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  What do you need to do?                                            │
+│                                                                     │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
+│  │                  │  │                  │  │                  │  │
+│  │  Choose a        │  │  Run a study     │  │  Find a          │  │
+│  │  method          │  │                  │  │  template        │  │
+│  │                  │  │  Go to an SOP    │  │                  │  │
+│  │  Start the       │  │  or checklist    │  │  Browse          │  │
+│  │  Method Finder   │  │  for a method    │  │  resources       │  │
+│  │                  │  │  you've chosen   │  │                  │  │
+│  └────────[→]───────┘  └────────[→]───────┘  └────────[→]───────┘  │
+│                                                                     │
+│  ──────────────────────────────────────────────────────────────     │
+│  Recently updated methods                    [View all methods →]   │
+│  User Interviews · Surveys · Card Sorting                           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**What this wireframe tests:** Three entry points map directly to the three primary jobs-to-be-done. No fourth card for "Learn about research" — this is not a primer. The recently-updated row gives returning users a quick re-entry without requiring a search.
+
+**Risk to watch:** The three-card layout assumes users can self-identify their job before entering. If practitioners commonly arrive not knowing *which* job they need (e.g., "I know I need to do something with interviews but haven't decided if it's moderated or unmoderated"), the "Choose a method" card needs clearer framing — perhaps "Not sure which method to use?" as a sub-label.
+
+---
+
+### R02 Decide — Method Finder Flow
+
+The Finder is the highest-stakes interaction on the site. It must feel like a conversation with a senior colleague, not a form.
+
+**Full user journey:**
+
+**Q1 screen — research question framing**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ ← Back to home                              Method Finder   1 of 6  │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  What are you trying to learn?                                      │
+│                                                                     │
+│  ○  What users think, feel, or believe       (attitudinal)          │
+│  ○  What users actually do                   (behavioral)           │
+│  ○  Both — I need to understand the gap between them                │
+│                                                                     │
+│  ─────────────────────────────────────────────────────────────────  │
+│  Why this matters: Conflating attitude and behavior is the          │
+│  most common source of misaligned research. Self-reported           │
+│  behavior rarely matches observed behavior.                         │
+│                                                                     │
+│                                               [Continue →]          │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Q2–Q5 — prose description (no separate wireframes needed)**
+
+- **Q2 — Fidelity:** Do you have something to test? Options: No artifact yet / Early concept or prototype / Existing live product
+- **Q3 — Scale:** How many people? Options: Individual depth (qualitative, n<10) / Patterns across a group (quantitative, n>40) / Both / Not sure yet
+- **Q4 — Context:** How can you access participants? Options: In a session you facilitate / Self-directed, unmoderated / In their natural environment / No direct access (surveys, analytics)
+- **Q5 — Timeline:** How long until you need findings? Options: Less than 2 weeks / 2–4 weeks / 4+ weeks
+
+**Q6 screen — final qualifier before results**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ ← Back                                      Method Finder   6 of 6  │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  One last thing: do you have a specific research question           │
+│  written down?                                                      │
+│                                                                     │
+│  ○  Yes — I know exactly what I need to learn                       │
+│  ○  Not yet — I'm still scoping the research                        │
+│                                                                     │
+│  ─────────────────────────────────────────────────────────────────  │
+│  Note: If you answered "Both" in Q3 and your timeline is            │
+│  &lt; 2 weeks, the Finder will flag that combination as             │
+│  high risk. You can proceed — but review the constraint             │
+│  warning on the results page before committing.                     │
+│                                                                     │
+│                                               [See methods →]       │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Results screen**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ ← Restart                                          Method Finder    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  Based on your answers:                                             │
+│                                                                     │
+│  ★ Best fit                                                         │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │  User Interviews                                            │    │
+│  │  Qualitative · Attitudinal · Moderated                     │    │
+│  │  Why: You need depth on beliefs, have &lt; 2 weeks, and    │    │
+│  │  can access participants directly.                          │    │
+│  │                              [View method →]  [Start SOP →]│    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                     │
+│  Also consider                                                      │
+│  Card Sorting — if your question is about mental models             │
+│  Contextual Inquiry — if access to natural context is possible      │
+│                                                                     │
+│  ⚠ Constraint note: Qualitative + quantitative in &lt; 2 weeks     │
+│  is high risk. Consider phasing or narrowing scope.                 │
+│                                                                     │
+│  [Restart finder]    [Export these results]    [View all methods]   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**What the Finder must NOT do:**
+- Return a single method with no alternatives (always show 2–3)
+- Silently drop conflicting answers without flagging them
+- Require users to know research terminology to complete it (all jargon must be explained in context, as in Q1)
+
+---
+
+### R03 Operate — Method/SOP Page Structure (top to bottom)
+
+A practitioner arriving here has already chosen their method. They need orientation in 10 seconds, then operational detail without friction.
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│ [← Method Library]        User Interviews          [Start checklist →]   │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  STICKY LEFT RAIL (248px)         │  MAIN CONTENT (scrolls)              │
+│  ─────────────────────────────    │  ────────────────────────────────    │
+│  Overview                         │                                      │
+│  When to use                      │  ── 1. ORIENTATION ──────────────    │
+│  NOT when to use                  │  Tagline: One sentence on the         │
+│  ─────────────────────────────    │  core purpose of this method.        │
+│  Planning                         │                                      │
+│  Screener & recruiting            │  When to use / NOT when to use       │
+│  Discussion guide                 │  2-column table: green / red.        │
+│  ─────────────────────────────    │  Directly visible above the fold.    │
+│  Field                            │                                      │
+│  Session checklist                │  ── 2. SELECTION CONTEXT ─────────   │
+│  Recording & consent              │  NNGroup dimensions: Attitudinal ·   │
+│  Notetaking template              │  Qualitative · Moderated/scripted    │
+│  ─────────────────────────────    │                                      │
+│  Analysis                         │  Typical use: Discovery phase ·      │
+│  Synthesis approach               │  Any fidelity                        │
+│  Tagging guidance                 │                                      │
+│  ─────────────────────────────    │  ── 3. PLANNING ─────────────────    │
+│  Templates & resources            │  Sample size guidance                │
+│  All downloads for this method    │  Recruiting criteria                 │
+│                                   │  Timeline estimates                  │
+│                                   │  Screener questions (copy-ready)     │
+│                                   │                                      │
+│                                   │  ── 4. FIELD ────────────────────    │
+│                                   │  Session checklist (checkable)       │
+│                                   │  Discussion guide structure          │
+│                                   │  Recording & consent requirements    │
+│                                   │  Facilitation tips                   │
+│                                   │                                      │
+│                                   │  ── 5. ANALYSIS ─────────────────    │
+│                                   │  Recommended synthesis approach      │
+│                                   │  Tagging guidance (atomic nuggets)   │
+│                                   │  Output formats                      │
+│                                   │                                      │
+│                                   │  ── 6. TEMPLATES ────────────────    │
+│                                   │  [Download discussion guide]         │
+│                                   │  [Download consent form]             │
+│                                   │  [Download notetaking template]      │
+│                                   │                                      │
+│                                   │  ── 7. RELATED ──────────────────    │
+│                                   │  Often paired with: Diary Studies    │
+│                                   │  Consider instead: Contextual Inquiry│
+│                                   │  See also: Survey (for scale)        │
+│                                   │                                      │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+**Progressive disclosure principle:** Sections 1–2 serve the evaluative job (still deciding). Sections 3–4 serve preparation. Sections 5–7 serve post-fieldwork. A practitioner who has done this method before goes straight to section 3 or 4 via the sticky rail; one who's uncertain reads sections 1–2 first.
+
+**Critical design decision:** The "[Start checklist →]" CTA in the header should jump to the SOP/checklist view — a separate focused mode that strips away the reference content and shows only actionable steps. This is different from the method page. If the SOP is just a section on the method page, the CTA is a scroll anchor. If it's a separate route, the URL structure matters.
+
+---
+
+### R04 Retrieve — How a User Finds a Template or Resource
+
+Two paths, each with different urgency.
+
+**Path 1 — Urgent (know exactly what you need):**
+
+```
+Homepage → Search "consent form" → Results filtered to Templates 
+→ Filter by method: User Interviews → Download
+```
+
+This path works only if:
+- Search is indexed by content type, not just method name
+- Template metadata includes: method name, file format, last updated, who maintains it
+
+**Path 2 — Contextual (inside a method page):**
+
+```
+Method page (User Interviews) → Section 6 Templates 
+→ See all templates for this method 
+→ Download discussion guide (Google Doc / .docx)
+```
+
+This path is the more common one for practitioners mid-preparation. It must be visible without scrolling past analysis content.
+
+**Risk:** If templates are not maintained, the Retrieve path becomes a liability — practitioners will find outdated consent forms and either use them incorrectly or stop trusting the playbook entirely. Governance cadence (see §09) must cover templates explicitly.
+
+---
+
+### R05 Method Library — Filters, Categories, Search Behavior
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ Method Library                    [Search methods ________________] │
+├──────────────────┬──────────────────────────────────────────────────┤
+│  FILTERS         │  RESULTS (12 methods)                            │
+│                  │                                                  │
+│  Type            │  ┌─────────────┐  ┌─────────────┐               │
+│  □ Attitudinal   │  │ User        │  │ Moderated   │               │
+│  □ Behavioral    │  │ Interviews  │  │ Usability   │               │
+│                  │  │             │  │ Testing     │               │
+│  Scale           │  │ Attitudinal │  │             │               │
+│  □ Qualitative   │  │ Qualitative │  │ Behavioral  │               │
+│  □ Quantitative  │  │ Moderated   │  │ Qualitative │               │
+│  □ Mixed         │  │             │  │ Scripted    │               │
+│                  │  │ [View →]    │  │             │               │
+│  Phase           │  └─────────────┘  │ [View →]    │               │
+│  □ Discovery     │                   └─────────────┘               │
+│  □ Exploratory   │                                                  │
+│  □ Evaluative    │  ┌─────────────┐  ┌─────────────┐               │
+│  □ Generative    │  │ Card        │  │ Tree        │               │
+│                  │  │ Sorting     │  │ Testing     │               │
+│  Context         │  │ ...         │  │ ...         │               │
+│  □ Moderated     │  └─────────────┘  └─────────────┘               │
+│  □ Unmoderated   │                                                  │
+│  □ Naturalistic  │  [Show all 12 →]                                 │
+│                  │                                                  │
+│  [Clear filters] │                                                  │
+└──────────────────┴──────────────────────────────────────────────────┘
+```
+
+**Filter logic:** Additive within a dimension (Attitudinal OR Behavioral), intersecting across dimensions (Attitudinal AND Qualitative AND Discovery). This is standard faceted search behavior; confirm before building.
+
+**Cards show:** Method name, 3 taxonomy tags, one-line description. No rating, no difficulty level, no time estimate on the card — that information lives on the method page.
+
+**Search behavior:** Full-text across method name, description, use-case text, and taxonomy tags. Does NOT search template file contents. Returns methods, not templates (templates appear only on the method page).
+
+**Coverage map — 2×2 view (alternative to card grid):**
+
+| | Qualitative | Quantitative | Mixed |
+|---|---|---|---|
+| **Attitudinal** | User Interviews, Card Sorting | Surveys | — |
+| **Behavioral** | Contextual Inquiry, Moderated UT | Tree Testing, Unmoderated UT | — |
+
+This view helps teams see gaps in their method repertoire. Worth including as a toggle on the Library page ("Grid view / Coverage map").
+
+---
+
+### R06 MVP Methods — Coverage Review
+
+| Method | Serves | Does NOT cover | Verdict |
+|---|---|---|---|
+| **User Interviews** | Attitudinal · Qualitative · Moderated · Discovery/Exploratory | Behavioral observation; scale | ✅ Keep |
+| **Moderated Usability Testing** | Behavioral · Qualitative · Scripted · Evaluative | Unmoderated; large samples | ✅ Keep |
+| **Unmoderated Usability Testing** | Behavioral · Qualitative–Quantitative · Self-directed · Evaluative | Deep follow-up; no moderation | ⚠ Conditional |
+| **Card Sorting** | Attitudinal · Qualitative–Quantitative · Information architecture | Navigation validation (that's tree testing) | ✅ Keep |
+| **Tree Testing** | Behavioral · Quantitative · Navigation structure | Card sorting / generative IA | ✅ Keep |
+| **Surveys** | Attitudinal · Quantitative · Unmoderated · Listen | Behavioral; causation | ✅ Keep |
+| **Contextual Inquiry** | Behavioral · Qualitative · Naturalistic · Discovery | Controlled; large scale | ✅ Keep |
+
+**On Unmoderated Usability Testing (⚠ Conditional):**
+The method is straightforward to run but requires access to a tool (Maze, UserTesting, Lookback, etc.). The SOP will be incomplete — or misleading — without specifying which tool the team actually uses. If the team doesn't have a license or has no agreed tool, this method page will create confusion rather than clarity. **Recommendation:** Include only if the team has an agreed unmoderated testing tool. Otherwise, defer to phase 2.
+
+**Coverage gap not in MVP:**
+- Diary Studies (longitudinal behavioral, no scripted artifact)
+- Participatory Design / Co-design (generative, attitudinal)
+- Analytics review (behavioral, quantitative, no participants)
+
+These are legitimate omissions for MVP — just document them as "phase 2" on the method library page so practitioners know they're coming.
+
+---
+
+### R07 Open Decisions
+
+Every decision below must be made by the product owner before visual design begins. None of these are developer questions — they are product and content strategy decisions.
+
+1. **Does "Retrieve" mean download, or link?** Are templates stored in this tool (as file downloads) or linked to an existing source (Google Drive, Confluence, Notion)? This determines the governance model for templates, the URL structure, and whether version history is visible to users.
+
+2. **Is the SOP a section or a separate view?** The "[Start checklist →]" CTA on method pages either jumps to a different route (e.g., `/methods/user-interviews/sop`) or scrolls to a section on the same page. A separate route enables a focused, step-by-step checklist mode. A section is simpler to build and maintain. Decision needed before layout is specified.
+
+3. **What is the unmoderated UT status?** Include or defer based on tool access (see R06). Decision needed before content model work begins for that method.
+
+4. **Does the Finder save or export results?** The Results screen wireframe includes "[Export these results]." If this is in scope for MVP, it requires a decision on format (PDF, copy-to-clipboard, shareable URL) and whether results are saved per user or stateless.
+
+5. **Is there a "team" layer?** The IA assumes a single shared instance used by the whole team. If there are sub-teams or practice areas that need different defaults, method visibility, or governance ownership, the information model needs to accommodate that. If not, confirm it's explicitly out of scope.
+
+6. **Who owns each method page?** The governance model specifies `content_owner` as a required frontmatter field. Before content is written, each of the 7 MVP methods needs an assigned owner. Without this, review cadence is unenforceable and updates will drift.
+
+7. **What is the consent form situation?** Consent forms are jurisdiction-specific and may require legal review. Are the consent forms in this tool the team's actual, approved forms — or illustrative templates? This affects how they're labeled and whether a disclaimer is needed.
+
+8. **Is search in MVP?** Global search is shown in every wireframe. Full-text search on a static site requires a client-side search library (Pagefind, Fuse.js, or similar). If this adds build complexity that delays launch, it could be deferred — but the "Retrieve" path degrades significantly without it.
+
+9. **What does "recently updated" mean on the homepage?** Is it methods with a `last_reviewed` date change, or methods where content was actually edited? These are different signals. The homepage widget needs a definition before it can be implemented.
+
+10. **What is the public/private boundary?** Is this tool accessible only on the internal network or VPN, or is it publicly accessible (just not advertised)? This affects whether consent forms, internal process details, or client-adjacent content can be included without redaction.
+
+---
+
+*End of IA Review · Decisions in R07 are required before visual design begins.*
