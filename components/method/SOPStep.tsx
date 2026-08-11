@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { SOPStep as SOPStepType } from '@/content/methods/types';
+import { useSOPProgress } from '@/contexts/SOPProgressContext';
 
 const PHASE_COLORS: Record<string, string> = {
   prepare:    '#1B6CA8',
@@ -12,19 +13,12 @@ const PHASE_COLORS: Record<string, string> = {
 };
 
 export function SOPStepCard({ step, index }: { step: SOPStepType; index: number }) {
-  const [checked, setChecked] = useState<Set<number>>(new Set());
+  const { checked, toggleItem } = useSOPProgress();
   const [expanded, setExpanded] = useState(false);
 
-  const allChecked = step.checklist.length > 0 && checked.size === step.checklist.length;
+  const stepChecked = checked[step.id] ?? new Set<number>();
+  const allChecked = step.checklist.length > 0 && stepChecked.size === step.checklist.length;
   const color = PHASE_COLORS[step.phase] ?? '#607090';
-
-  function toggleItem(i: number) {
-    setChecked(prev => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i); else next.add(i);
-      return next;
-    });
-  }
 
   return (
     <div
@@ -101,8 +95,8 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
               }}>
                 <input
                   type="checkbox"
-                  checked={checked.has(i)}
-                  onChange={() => toggleItem(i)}
+                  checked={stepChecked.has(i)}
+                  onChange={() => toggleItem(step.id, i)}
                   style={{
                     width: '1rem',
                     height: '1rem',
@@ -116,8 +110,8 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
                 <div>
                   <span style={{
                     fontSize: '0.875rem',
-                    color: checked.has(i) ? 'var(--color-ink-faint)' : 'var(--color-ink)',
-                    textDecoration: checked.has(i) ? 'line-through' : 'none',
+                    color: stepChecked.has(i) ? 'var(--color-ink-faint)' : 'var(--color-ink)',
+                    textDecoration: stepChecked.has(i) ? 'line-through' : 'none',
                     lineHeight: 1.5,
                   }}>
                     {item.text}
