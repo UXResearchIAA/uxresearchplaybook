@@ -8,8 +8,9 @@ export const metadata: Metadata = {
   description: 'Decision-support and operational tool for the UX research and design team.',
 };
 
-// Runs synchronously before React hydrates — prevents theme flash
-const ANTI_FLICKER = `try{var t=localStorage.getItem('ux-playbook-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}`;
+// Runs synchronously before React hydrates — prevents theme flash.
+// Always sets data-theme (light by default); dark only if explicitly stored.
+const ANTI_FLICKER = `try{var t=localStorage.getItem('ux-playbook-theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}`;
 
 export default function RootLayout({
   children,

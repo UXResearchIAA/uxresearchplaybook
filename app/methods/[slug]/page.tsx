@@ -124,8 +124,9 @@ export default async function MethodDetailPage({ params }: { params: Promise<{ s
             gap: '2.5rem',
             alignItems: 'start',
           }}>
-            {/* Sidebar */}
-            <div className="method-sidebar-col">
+            {/* Sidebar — alignSelf:stretch makes this grid cell as tall as the article,
+                 giving the position:sticky nav inside a valid tall containing block */}
+            <div className="method-sidebar-col" style={{ alignSelf: 'stretch' }}>
               <MethodSidebar methodName={method.shortName} />
             </div>
 

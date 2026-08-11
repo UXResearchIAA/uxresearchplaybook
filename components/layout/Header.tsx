@@ -9,9 +9,6 @@ const NAV_LINKS = [
   { href: '/methods', label: 'Methods' },
 ];
 
-// Theme cycle order: system → light → dark → system
-const CYCLE: Theme[] = ['system', 'light', 'dark'];
-
 function SunIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -35,33 +32,14 @@ function MoonIcon() {
   );
 }
 
-function SystemIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M12 3v18"/>
-      <path d="M12 3C7 3 3 7 3 12s4 9 9 9"/>
-    </svg>
-  );
-}
-
-const THEME_META: Record<Theme, { icon: React.ReactNode; label: string; next: Theme }> = {
-  system: { icon: <SystemIcon />, label: 'System theme',  next: 'light' },
-  light:  { icon: <SunIcon />,    label: 'Light theme',   next: 'dark'  },
-  dark:   { icon: <MoonIcon />,   label: 'Dark theme',    next: 'system' },
-};
-
 export default function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
-  const meta = THEME_META[theme];
+  const isLight = theme === 'light';
 
-  function cycleTheme() {
-    setTheme(meta.next);
+  function toggleTheme() {
+    setTheme(isLight ? 'dark' : 'light');
   }
 
   return (
@@ -128,11 +106,11 @@ export default function Header() {
             flexShrink: 0,
           }} aria-hidden="true" />
 
-          {/* Theme toggle */}
+          {/* Theme toggle: sun = currently light (click → dark); moon = currently dark (click → light) */}
           <button
-            onClick={cycleTheme}
-            aria-label={`${meta.label} — click to switch to ${THEME_META[meta.next].label}`}
-            title={meta.label}
+            onClick={toggleTheme}
+            aria-label={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
+            title={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -160,7 +138,7 @@ export default function Header() {
               el.style.borderColor = 'var(--color-border)';
             }}
           >
-            {meta.icon}
+            {isLight ? <SunIcon /> : <MoonIcon />}
           </button>
         </div>
       </div>
