@@ -22,7 +22,7 @@ export const FINDER_QUESTIONS: FinderQuestion[] = [
   {
     id: 'learning_goal',
     question: 'What are you trying to learn?',
-    subtext: 'This is the most important question. Conflating attitude and behavior is the most common source of misaligned research — self-reported behavior rarely matches observed behavior.',
+    subtext: 'The most important question. Mixing attitudinal and behavioral goals is the most common cause of misaligned method selection — self-reported behavior rarely matches observed behavior.',
     options: [
       { id: 'attitudinal',  label: 'What users think, feel, or believe', description: 'Motivations, mental models, attitudes, opinions, expectations.' },
       { id: 'behavioral',   label: 'What users actually do', description: 'Actions, behaviors, task performance, workflows, errors.' },
@@ -73,7 +73,7 @@ export const FINDER_QUESTIONS: FinderQuestion[] = [
     subtext: 'This is a quality gate, not a judgment. Proceeding without a written question makes it hard to evaluate whether the findings answered it.',
     options: [
       { id: 'yes', label: 'Yes — I know exactly what I need to learn', description: 'Proceed to recommendations.' },
-      { id: 'no',  label: 'Not yet — I\'m still scoping the research', description: 'The Method Finder will still recommend methods, but writing a research question before recruiting is strongly recommended.' },
+      { id: 'no',  label: 'Not yet — I\'m still scoping the research', description: 'You will still get recommendations. Writing a research question before recruiting is strongly recommended.' },
     ],
   },
 ];
@@ -141,12 +141,12 @@ function scoreMethod(method: MethodStub, answers: FinderAnswers): MethodScore {
 
   // ── scale ─────────────────────────────────────────────────────
   if (scale === 'qualitative') {
-    if (method.scale === 'qualitative') { score += 20; reasons.push('Qualitative method — produces deep, interpretive insight.'); }
+    if (method.scale === 'qualitative') { score += 20; reasons.push('Qualitative method — generates in-depth insight from a small number of participants.'); }
     if (method.scale === 'quantitative'){ score -= 15; caveats.push('Quantitative method — designed for breadth, not depth.'); }
     if (method.scale === 'mixed')       { score += 10; }
   }
   if (scale === 'quantitative') {
-    if (method.scale === 'quantitative'){ score += 20; reasons.push('Quantitative method — generates measurable, statistically tractable data.'); }
+    if (method.scale === 'quantitative'){ score += 20; reasons.push('Quantitative method — generates measurable data across a large sample.'); }
     if (method.scale === 'qualitative') { score -= 15; caveats.push('Qualitative method — designed for depth, not statistical breadth.'); }
     if (method.scale === 'mixed')       { score += 10; }
   }

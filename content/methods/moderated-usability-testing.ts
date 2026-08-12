@@ -103,7 +103,7 @@ Moderated testing is qualitative: a skilled researcher can follow unexpected beh
       id: 3,
       phase: 'prepare',
       title: 'Recruit and screen participants',
-      description: 'Usability testing participants should represent the actual target users of the product or feature being tested. A well-known NN/g heuristic recommends 5 participants for qualitative usability testing — this is a guideline for identifying the most significant usability problems in a single round, not a ceiling for all study designs.',
+      description: 'Usability testing participants should represent the actual target users of the product or feature being tested. NN/g recommends 5 participants for qualitative usability testing — this is a guideline for identifying the most significant usability problems in a single round, not a ceiling for all study designs.',
       checklist: [
         { text: 'Define screener criteria matching the target user population for this specific product or feature' },
         { text: 'Recruit 5–8 participants for a qualitative round; plan a second round if the first round produces major design changes' },
@@ -211,7 +211,7 @@ Quantitative signals from the session — task completion rates, time-on-task, e
 
   synthesisApproach: `Synthesis translates the problem log into design recommendations. Each recommendation should be specific and testable: "Replace X with Y because participants expected Z" is a recommendation; "improve clarity" is not.
 
-Where possible, classify the cause of usability problems — wrong affordances, misleading labels, workflow mismatches, hidden features, error recovery failure — to allow for broader design principles to be extracted alongside specific fixes. A pattern of problems with terminology, for example, may point to a broader content strategy intervention rather than individual label changes.`,
+Where possible, classify the cause of usability problems — wrong affordances, misleading labels, workflow mismatches, hidden features, error recovery failure — to surface broader patterns alongside specific fixes. A pattern of problems with terminology, for example, may point to a systematic review of the product's language rather than individual label changes.`,
 
   typicalOutputs: [
     'Usability problem log with severity ratings and frequency counts (primary deliverable)',

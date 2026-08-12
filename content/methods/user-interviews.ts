@@ -18,11 +18,11 @@ const userInterviews: MethodContent = {
 
   landscape: { qualQuant: 0.1, attiBeha: 0.1 },
 
-  overview: `A user interview is a structured or semi-structured conversation between a researcher and a participant, designed to surface the participant's attitudes, motivations, mental models, and lived experiences. Interviews are not observations — the researcher is asking participants to reflect on and report their experiences, not watching them perform a task.
+  overview: `A user interview is a structured or semi-structured conversation between a researcher and a participant, designed to surface the participant's attitudes, motivations, mental models, and lived experiences. Interviews are not observations — the researcher asks participants to reflect on and report their experiences, not watching them perform a task.
 
 This distinction matters. Interview data is what people say; observational data is what people do. User interviews are the right method when what people think and feel is the research question. When the question is what people actually do, a behavioral method — contextual inquiry, usability testing — is more appropriate.
 
-Interviews are flexible and generate rich, contextual data. A skilled interviewer can follow unexpected threads, probe for depth, and surface insights that a pre-designed survey or test protocol would miss. The trade-off is scale: interviews are resource-intensive and produce qualitative findings that are not statistically generalizable.`,
+Interviews are flexible and generate rich, contextual data. A skilled interviewer can follow unexpected directions, probe for depth, and surface insights that a pre-designed survey or test protocol would miss. The trade-off is scale: interviews are resource-intensive and produce qualitative findings that are not statistically generalizable.`,
 
   whatItAnswers: [
     'Why do users approach a task or decision the way they do?',
@@ -76,7 +76,7 @@ Interviews are flexible and generate rich, contextual data. A skilled interviewe
       id: 2,
       phase: 'prepare',
       title: 'Write a discussion guide',
-      description: 'A discussion guide is a structured set of topics and questions — not a rigid script. It ensures coverage of all research objectives while leaving room for the interviewer to probe unexpected directions. Interview questions should be open-ended, non-leading, and focused on eliciting stories and examples rather than opinions.',
+      description: 'A discussion guide is a structured set of topics and questions — not a rigid script. It ensures coverage of all research objectives while leaving room for the interviewer to probe unexpected directions. Interview questions should be open-ended, non-leading, and focused on drawing out stories and examples rather than opinions.',
       checklist: [
         { text: 'Write a warm-up section: easy, relationship-building questions about the participant\'s role and context' },
         { text: 'Write topic areas that map to each secondary research question' },
@@ -116,7 +116,7 @@ Interviews are flexible and generate rich, contextual data. A skilled interviewe
         'Using convenience samples (colleagues, friends) that don\'t represent the real population',
         'Recruiting too many participants in a single session block, risking researcher fatigue in analysis',
         'Skipping the consent step — especially important for sessions that will be recorded',
-        'No-shows are common: over-recruit by 20% or schedule stand-by participants',
+        'No-shows are common: over-recruit by 20% or schedule backup participants',
       ],
       expectedOutput: 'A confirmed participant list with screener responses, scheduled sessions, and sent consent forms.',
       templateRef: 'Screener Survey Template',
@@ -125,7 +125,7 @@ Interviews are flexible and generate rich, contextual data. A skilled interviewe
       id: 4,
       phase: 'conduct',
       title: 'Conduct the interview',
-      description: 'The interview itself is a skilled activity. The researcher\'s primary job is to listen — not to explain, justify, or react to what participants say. Silence is productive: let participants finish their thought before asking the next question. Refer to your discussion guide, but follow the conversation when it goes somewhere interesting.',
+      description: 'The interview is a skilled activity. The researcher\'s primary job is to listen — not to explain, justify, or react to what participants say. Silence is productive: let participants finish their thought before asking the next question. Refer to your discussion guide, but follow the conversation when it goes somewhere interesting.',
       checklist: [
         { text: 'Set up recording with participant consent before beginning' },
         { text: 'Introduce yourself, explain the purpose (you\'re testing the product/situation, not the participant), and set expectations for time' },
@@ -151,7 +151,7 @@ Interviews are flexible and generate rich, contextual data. A skilled interviewe
       id: 5,
       phase: 'analyze',
       title: 'Process and code the data',
-      description: 'Qualitative analysis requires converting raw recordings and notes into structured, searchable data. The most rigorous approach for interview data is affinity diagramming combined with thematic coding — grouping observations, quotes, and behaviors by emergent themes rather than by question structure.',
+      description: 'Qualitative analysis requires converting raw recordings and notes into structured, searchable data. A rigorous approach for interview data is affinity diagramming combined with thematic coding — grouping observations, quotes, and behaviors by emergent themes rather than by question structure.',
       checklist: [
         { text: 'Transcribe or review recordings for each session' },
         { text: 'Extract discrete observations and direct quotes as individual "nuggets" on sticky notes or cards' },
@@ -212,7 +212,7 @@ The key discipline in qualitative analysis is treating each participant's respon
 
   synthesisApproach: `Synthesis converts coded themes into actionable insights. The standard format is: "Users [do/believe/experience X] because [Y]" — a claim about the user's perspective that is supported by evidence from the data.
 
-Affinity diagrams are useful for surfacing structure in the data; "How Might We" reframes are useful for converting problem-oriented findings into design opportunity spaces. If the team uses atomic research ("nuggets"), each coded observation should be tagged individually and linked to themes — this enables cross-study synthesis in a future insights repository.`,
+Affinity diagrams are useful for surfacing structure in the data; "How Might We" reframes are useful for converting problem statements into design opportunities. If the team uses atomic research ("nuggets"), each coded observation should be tagged individually and linked to themes — this enables cross-study synthesis in a future insights repository.`,
 
   typicalOutputs: [
     'Findings report or slide deck (primary deliverable)',

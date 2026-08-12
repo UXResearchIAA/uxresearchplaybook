@@ -20,9 +20,9 @@ const contextualInquiry: MethodContent = {
 
   overview: `Contextual inquiry is a field research method that combines observation and structured interviewing in the participant's natural work environment. The researcher visits the participant at their workplace (or wherever they actually perform the activity being studied) and observes them working on real tasks — asking questions as behaviors occur, rather than reconstructing events after the fact.
 
-The method was formally developed by Karen Holtzblatt and Hugh Beyer in the 1990s as part of their Contextual Design process. It rests on four principles: context (observation in the actual environment), partnership (the researcher and participant work together to understand the work), interpretation (the researcher forms and tests hypotheses with the participant in real time), and focus (the inquiry is guided by a defined research scope, not open-ended anthropological observation).
+The method was formally developed by Karen Holtzblatt and Hugh Beyer in the 1990s as part of their Contextual Design process. It rests on four principles: context (observe in the actual environment, not a lab or screen share), partnership (researcher and participant work together to understand the work), interpretation (the researcher forms and checks hypotheses with the participant as the work unfolds), and focus (the inquiry follows a defined scope rather than open-ended observation).
 
-The master-apprentice model is the defining metaphor: the participant is the expert on their own work; the researcher is an apprentice trying to learn it. This posture — explicitly not expert-to-subject — reduces the social pressure on participants to perform or explain rather than simply work.
+The master-apprentice model defines the relationship: the participant is the expert on their own work; the researcher is an apprentice trying to learn it. This framing — researcher as learner, not evaluator — reduces pressure on participants to perform or justify their work.
 
 Contextual inquiry surfaces what interview methods cannot: the workarounds users have built around broken processes, the tacit knowledge they apply without realizing it, the tools and people they rely on outside the product, and the environmental constraints that shape their behavior. It closes the gap between what users say they do and what they actually do.`,
 
@@ -59,7 +59,7 @@ Contextual inquiry surfaces what interview methods cannot: the workarounds users
       id: 1,
       phase: 'prepare',
       title: 'Define research focus and scope',
-      description: 'Contextual inquiry generates a large volume of rich data. Without a defined focus, the field work produces observations that cannot be synthesized into actionable findings. A focus is not a hypothesis to confirm — it is a lens that determines which aspects of the work to attend to and which to set aside.',
+      description: 'Contextual inquiry generates a large volume of rich data. Without a defined focus, the field work produces observations that cannot be turned into actionable findings. A focus is not a hypothesis to confirm — it is a lens that determines which aspects of the work to attend to and which to set aside.',
       checklist: [
         { text: 'Write a primary focus statement: what aspect of the work are you studying?', note: 'e.g., "How do invoice approvers manage multi-step approval workflows across email and the ERP system?"' },
         { text: 'Define the scope: what activities and contexts are in scope, and what is out of scope?' },
@@ -205,7 +205,7 @@ Contextual inquiry surfaces what interview methods cannot: the workarounds users
 
   analysisApproach: `Contextual inquiry analysis is more complex than interview analysis because it combines observation data (what users did) with interview data (what they said) and artifact data (what tools, documents, and systems they used). The primary analytical structure is the workflow model — a diagram of the actual work as observed.
 
-The Holtzblatt-Beyer Contextual Design process defines five formal work models (flow model, sequence model, artifact model, cultural model, physical model). Most product teams find that a simplified workflow sequence — showing the steps, decision points, tools, and actors involved — provides sufficient analytical structure without requiring full CD process adoption.
+The Holtzblatt-Beyer Contextual Design process defines five formal work models (flow model, sequence model, artifact model, cultural model, physical model). Most product teams find that a simplified workflow sequence — showing the steps, decision points, tools, and actors involved — provides sufficient analytical structure without adopting the full Contextual Design process.
 
 Affinity diagramming is used alongside the models to group themes and surface patterns across participants.`,
 
@@ -213,7 +213,7 @@ Affinity diagramming is used alongside the models to group themes and surface pa
 
 Workarounds are particularly valuable synthesis inputs: each workaround is evidence of an unmet need. A user who has built a parallel spreadsheet to manage something the system should handle is telling the team exactly what the system fails to provide.
 
-Design opportunity statements ("How might we…") are a useful output format: they frame the finding as a space for design exploration rather than a specific solution, which keeps the synthesis useful across longer time horizons.`,
+Design opportunity statements ("How might we…") are a useful output format: they frame the finding as a space for design exploration rather than a specific solution, which keeps findings relevant as designs evolve.`,
 
   typicalOutputs: [
     'Workflow model: a diagram of the observed activity with annotations',
