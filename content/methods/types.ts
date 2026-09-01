@@ -25,6 +25,7 @@ export interface Template {
   description: string;
   format: string;
   url: string | null; // null = placeholder
+  phase?: 'prepare' | 'conduct' | 'analyze' | 'share';
 }
 
 export interface Source {

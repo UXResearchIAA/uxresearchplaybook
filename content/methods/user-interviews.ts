@@ -347,35 +347,72 @@ The key discipline in qualitative analysis is treating each participant's respon
   ],
 
   templates: [
+    // ── Prepare ──────────────────────────────────────────────────────────────
     {
       name: 'Research Brief',
       description: 'One-page document aligning the team on research questions, rationale, and success criteria before work begins.',
       format: 'Google Doc',
       url: null,
+      phase: 'prepare',
     },
     {
       name: 'Discussion Guide',
       description: 'Semi-structured interview guide with warm-up, topic areas, open-ended questions, and probe prompts.',
       format: 'Google Doc',
       url: null,
+      phase: 'prepare',
     },
     {
       name: 'Participant Screener',
       description: 'Short survey to qualify or disqualify potential participants against recruitment criteria.',
       format: 'Google Form / Typeform',
       url: null,
+      phase: 'prepare',
     },
     {
       name: 'Consent Form',
       description: 'Participant consent for recording and use of session data. Includes GDPR-aligned language. Requires legal review before use.',
       format: 'PDF',
       url: null,
+      phase: 'prepare',
     },
+    // ── Conduct ──────────────────────────────────────────────────────────────
     {
       name: 'Notetaking Template',
       description: 'Structured note sheet for capturing key observations, quotes, and body language during a session.',
       format: 'Google Doc',
       url: null,
+      phase: 'conduct',
+    },
+    {
+      name: 'Session Debrief Memo',
+      description: 'Short post-session template for capturing immediate impressions and notable quotes before they fade.',
+      format: 'Google Doc',
+      url: null,
+      phase: 'conduct',
+    },
+    // ── Analyze ──────────────────────────────────────────────────────────────
+    {
+      name: 'Affinity Diagram',
+      description: 'Template for organizing coded observations into emergent theme clusters. Works in FigJam or Miro.',
+      format: 'FigJam / Miro',
+      url: null,
+      phase: 'analyze',
+    },
+    {
+      name: 'Thematic Coding Sheet',
+      description: 'Spreadsheet for coding transcript segments by theme with participant ID and quote tracking.',
+      format: 'Google Sheets',
+      url: null,
+      phase: 'analyze',
+    },
+    // ── Share ─────────────────────────────────────────────────────────────────
+    {
+      name: 'Findings Report',
+      description: 'Structured presentation template for sharing research findings, implications, and recommended next steps with stakeholders.',
+      format: 'Google Slides / Figma',
+      url: null,
+      phase: 'share',
     },
   ],
 

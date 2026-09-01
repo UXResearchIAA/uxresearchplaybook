@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { getMethod, allMethods } from '@/content/methods/index';
 import MethodSidebar, { type SectionLink } from '@/components/method/MethodSidebar';
 import { SOPStepCard } from '@/components/method/SOPStep';
-import type { MethodContent, ResearchPhase } from '@/content/methods/types';
+import type { MethodContent, ResearchPhase, Template } from '@/content/methods/types';
 
 export async function generateStaticParams() {
   return allMethods
@@ -50,15 +50,15 @@ const DEFAULT_SECTIONS: SectionLink[] = [
   { id: 'sources',     label: 'Sources'           },
 ];
 
-// Sidebar sections for User Interviews (no Synthesize; Analyze and Share have expanded labels)
+// Sidebar sections for User Interviews (no Synthesize)
 const USER_INTERVIEWS_SECTIONS: SectionLink[] = [
   { id: 'overview',    label: 'Overview'          },
   { id: 'at-a-glance', label: 'At a glance'       },
   { id: 'when-to-use', label: 'When to use'       },
   { id: 'prepare',     label: 'Prepare'           },
   { id: 'conduct',     label: 'Conduct'           },
-  { id: 'analyze',     label: 'Analyze & Reflect' },
-  { id: 'share',       label: 'Share & Archive'   },
+  { id: 'analyze',     label: 'Analyze'           },
+  { id: 'share',       label: 'Share'             },
   { id: 'templates',   label: 'Templates & tools' },
   { id: 'related',     label: 'Related methods'   },
   { id: 'sources',     label: 'Sources'           },
@@ -88,9 +88,12 @@ export default async function MethodDetailPage({ params }: { params: Promise<{ s
   const relatedLabel   = hasSynthesize ? '10' : '09';
   const sourcesLabel   = hasSynthesize ? '11' : '10';
 
-  // Section titles (customized per slug where needed)
-  const analyzeTitle = isUserInterviews ? 'Analyze & Reflect' : 'Analyze';
-  const shareTitle   = isUserInterviews ? 'Share & Archive'   : 'Share';
+  // Section title labels (user-interviews uses simpler names)
+  const analyzeTitle = isUserInterviews ? 'Analyze' : 'Analyze';
+  const shareTitle   = isUserInterviews ? 'Share'   : 'Share';
+
+  // Whether all templates carry a phase — enables the grid layout
+  const hasPhaseGroupedTemplates = method.templates.some(t => t.phase);
 
   // Sidebar section list
   const sidebarSections = isUserInterviews ? USER_INTERVIEWS_SECTIONS : DEFAULT_SECTIONS;
@@ -117,42 +120,31 @@ export default async function MethodDetailPage({ params }: { params: Promise<{ s
         padding: 'clamp(1.5rem, 4vw, 2.5rem) 0',
       }}>
         <div className="page-container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.25rem' }}>
-            <div style={{ maxWidth: '620px' }}>
-              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-                <span className={`tag tag-${method.axis}`}>{method.axis}</span>
-                <span className={`tag tag-${method.scale}`}>{method.scale}</span>
-                <span className="tag tag-qualitative">{CONTEXT_LABEL[method.context]}</span>
-                {method.phases.map(p => (
-                  <span key={p} className="tag tag-phase">{PHASE_LABEL[p]}</span>
-                ))}
-              </div>
-              <h1 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.2,
-                marginBottom: '0.6rem',
-              }}>
-                {method.name}
-              </h1>
-              <p style={{
-                fontSize: '1rem',
-                color: 'var(--color-ink-muted)',
-                lineHeight: 1.6,
-              }}>
-                {method.tagline}
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
-              <a href="#prepare" className="btn btn-primary">
-                Start SOP →
-              </a>
-              <a href="#templates" className="btn btn-secondary">
-                Templates
-              </a>
-            </div>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+            <span className={`tag tag-${method.axis}`}>{method.axis}</span>
+            <span className={`tag tag-${method.scale}`}>{method.scale}</span>
+            <span className="tag tag-qualitative">{CONTEXT_LABEL[method.context]}</span>
+            {method.phases.map(p => (
+              <span key={p} className="tag tag-phase">{PHASE_LABEL[p]}</span>
+            ))}
           </div>
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+            fontWeight: 400,
+            lineHeight: 1.2,
+            marginBottom: '0.6rem',
+          }}>
+            {method.name}
+          </h1>
+          <p style={{
+            fontSize: '1rem',
+            color: 'var(--color-ink-muted)',
+            lineHeight: 1.6,
+            maxWidth: '620px',
+          }}>
+            {method.tagline}
+          </p>
         </div>
       </header>
 
@@ -302,11 +294,15 @@ export default async function MethodDetailPage({ params }: { params: Promise<{ s
             {/* ── Templates ── */}
             <section id="templates" style={{ scrollMarginTop: '80px', marginBottom: '3rem' }}>
               <SectionHeader label={templatesLabel} title="Templates & tools" />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                {method.templates.map((t, i) => (
-                  <TemplateRow key={i} template={t} />
-                ))}
-              </div>
+              {hasPhaseGroupedTemplates ? (
+                <TemplatePhaseGrid templates={method.templates} />
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                  {method.templates.map((t, i) => (
+                    <TemplateRow key={i} template={t} />
+                  ))}
+                </div>
+              )}
             </section>
 
             {/* ── Related methods ── */}
@@ -455,7 +451,7 @@ function SOPPhaseSection({
         gap: '0.75rem',
         marginBottom: '1.25rem',
         paddingBottom: '0.75rem',
-        borderBottom: '1px solid var(--color-border)',
+        borderBottom: `2px solid ${color}`,
       }}>
         <span style={{
           fontSize: '0.72rem',
@@ -466,22 +462,9 @@ function SOPPhaseSection({
         }}>
           {label}
         </span>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', fontWeight: 400, margin: 0 }}>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', fontWeight: 400, margin: 0, color: 'var(--color-ink)' }}>
           {title}
         </h2>
-        <span style={{
-          fontSize: '0.68rem',
-          fontWeight: 700,
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-          color,
-          background: 'var(--color-surface-alt)',
-          border: '1px solid var(--color-border)',
-          padding: '0.15em 0.55em',
-          borderRadius: '3px',
-        }}>
-          {title} phase
-        </span>
       </div>
 
       {steps.length > 0 && (
@@ -497,7 +480,109 @@ function SOPPhaseSection({
   );
 }
 
-// Template resource row — distinguishes available vs planned templates
+// Phase-grouped template grid — used when templates carry a `phase` field
+const TEMPLATE_PHASES: Array<{ id: 'prepare' | 'conduct' | 'analyze' | 'share'; label: string; color: string }> = [
+  { id: 'prepare', label: 'Prepare', color: '#1B6CA8' },
+  { id: 'conduct', label: 'Conduct', color: '#B5651D' },
+  { id: 'analyze', label: 'Analyze', color: '#1E6B45' },
+  { id: 'share',   label: 'Share',   color: '#607090' },
+];
+
+function TemplatePhaseGrid({ templates }: { templates: Template[] }) {
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: '1rem',
+      alignItems: 'start',
+    }}>
+      {TEMPLATE_PHASES.map(phase => {
+        const phaseTemplates = templates.filter(t => t.phase === phase.id);
+        return (
+          <div key={phase.id}>
+            {/* Phase column header */}
+            <div style={{
+              background: phase.color,
+              padding: '0.6rem 0.9rem',
+              borderRadius: '6px',
+              marginBottom: '0.65rem',
+            }}>
+              <p style={{
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                color: '#fff',
+                margin: 0,
+                letterSpacing: '0.04em',
+              }}>
+                {phase.label}
+              </p>
+            </div>
+
+            {/* Template cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {phaseTemplates.length === 0 ? (
+                <p style={{ fontSize: '0.78rem', color: 'var(--color-ink-faint)', fontStyle: 'italic', padding: '0.5rem 0' }}>
+                  No templates yet
+                </p>
+              ) : (
+                phaseTemplates.map((t, i) => (
+                  <div key={i} style={{
+                    padding: '0.75rem 0.9rem',
+                    background: 'var(--color-surface)',
+                    border: '1px solid var(--color-border)',
+                    borderRadius: '6px',
+                    opacity: t.url ? 1 : 0.85,
+                  }}>
+                    <p style={{
+                      fontWeight: 500,
+                      fontSize: '0.875rem',
+                      margin: '0 0 0.2rem',
+                      color: 'var(--color-ink)',
+                      lineHeight: 1.3,
+                    }}>
+                      {t.url ? (
+                        <a href={t.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>
+                          {t.name}
+                        </a>
+                      ) : t.name}
+                    </p>
+                    <p style={{
+                      fontSize: '0.72rem',
+                      color: 'var(--color-ink-faint)',
+                      margin: 0,
+                      fontFamily: 'var(--font-mono)',
+                    }}>
+                      → {t.format}
+                    </p>
+                    {!t.url && (
+                      <span style={{
+                        display: 'inline-block',
+                        marginTop: '0.4rem',
+                        fontSize: '0.65rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.04em',
+                        textTransform: 'uppercase',
+                        color: 'var(--color-ink-faint)',
+                        padding: '0.1em 0.4em',
+                        background: 'var(--color-surface-alt)',
+                        border: '1px dashed var(--color-border-hi)',
+                        borderRadius: '3px',
+                      }}>
+                        Planned
+                      </span>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Flat template row — used for methods without phase-grouped templates
 function TemplateRow({
   template,
 }: {
@@ -519,7 +604,6 @@ function TemplateRow({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.2rem' }}>
           <p style={{ fontWeight: 500, fontSize: '0.9rem', margin: 0 }}>{template.name}</p>
-          {/* Format badge */}
           <span style={{
             fontSize: '0.68rem',
             fontWeight: 600,
@@ -567,7 +651,6 @@ function TemplateRow({
           flexShrink: 0,
           whiteSpace: 'nowrap',
         }}>
-          {/* Clock icon */}
           <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.5"/>
             <path d="M6 3v3l1.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
