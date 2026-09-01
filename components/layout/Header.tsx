@@ -1,13 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useTheme, type Theme } from '@/contexts/ThemeContext';
-
-const NAV_LINKS = [
-  { href: '/finder', label: 'Find a method' },
-  { href: '/methods', label: 'Methods' },
-];
+import { useTheme } from '@/contexts/ThemeContext';
 
 function SunIcon() {
   return (
@@ -33,7 +27,6 @@ function MoonIcon() {
 }
 
 export default function Header() {
-  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
   const isLight = theme === 'light';
@@ -70,77 +63,40 @@ export default function Header() {
           UX Research Playbook
         </Link>
 
-        {/* Right side: nav + theme toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          {/* Desktop nav */}
-          <nav aria-label="Primary navigation" style={{ display: 'flex', gap: '0.25rem' }}>
-            {NAV_LINKS.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  padding: '0.35rem 0.75rem',
-                  borderRadius: '5px',
-                  fontSize: '0.875rem',
-                  textDecoration: 'none',
-                  fontWeight: pathname === link.href ? 500 : 400,
-                  background: pathname.startsWith(link.href)
-                    ? 'var(--color-accent-dim)'
-                    : 'transparent',
-                  color: pathname.startsWith(link.href)
-                    ? 'var(--color-accent)'
-                    : 'var(--color-ink-muted)',
-                  transition: 'background 0.12s, color 0.12s',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Divider */}
-          <div style={{
-            width: '1px',
-            height: '20px',
-            background: 'var(--color-border)',
+        {/* Theme toggle: sun = currently light (click → dark); moon = currently dark (click → light) */}
+        <button
+          onClick={toggleTheme}
+          aria-label={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
+          title={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '32px',
+            height: '32px',
+            borderRadius: '5px',
+            border: '1px solid var(--color-border)',
+            background: 'transparent',
+            color: 'var(--color-ink-muted)',
+            cursor: 'pointer',
             flexShrink: 0,
-          }} aria-hidden="true" />
-
-          {/* Theme toggle: sun = currently light (click → dark); moon = currently dark (click → light) */}
-          <button
-            onClick={toggleTheme}
-            aria-label={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
-            title={isLight ? 'Switch to dark theme' : 'Switch to light theme'}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '32px',
-              height: '32px',
-              borderRadius: '5px',
-              border: '1px solid var(--color-border)',
-              background: 'transparent',
-              color: 'var(--color-ink-muted)',
-              cursor: 'pointer',
-              flexShrink: 0,
-              transition: 'background 0.12s, color 0.12s, border-color 0.12s',
-            }}
-            onMouseEnter={e => {
-              const el = e.currentTarget;
-              el.style.background = 'var(--color-surface-alt)';
-              el.style.color = 'var(--color-ink)';
-              el.style.borderColor = 'var(--color-border-hi)';
-            }}
-            onMouseLeave={e => {
-              const el = e.currentTarget;
-              el.style.background = 'transparent';
-              el.style.color = 'var(--color-ink-muted)';
-              el.style.borderColor = 'var(--color-border)';
-            }}
-          >
-            {isLight ? <SunIcon /> : <MoonIcon />}
-          </button>
-        </div>
+            transition: 'background 0.12s, color 0.12s, border-color 0.12s',
+          }}
+          onMouseEnter={e => {
+            const el = e.currentTarget;
+            el.style.background = 'var(--color-surface-alt)';
+            el.style.color = 'var(--color-ink)';
+            el.style.borderColor = 'var(--color-border-hi)';
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget;
+            el.style.background = 'transparent';
+            el.style.color = 'var(--color-ink-muted)';
+            el.style.borderColor = 'var(--color-border)';
+          }}
+        >
+          {isLight ? <SunIcon /> : <MoonIcon />}
+        </button>
       </div>
     </header>
   );

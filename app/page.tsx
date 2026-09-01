@@ -1,11 +1,4 @@
-import Link from 'next/link';
-import { allMethods } from '@/content/methods/index';
 import EntryCards from '@/components/home/EntryCards';
-import MethodQuickLinks from '@/components/home/MethodQuickLinks';
-
-const protoMethods = allMethods
-  .filter(m => m.status === 'prototype')
-  .map(m => ({ slug: m.slug, name: m.name, axis: m.axis, scale: m.scale }));
 
 export default function HomePage() {
   return (
@@ -24,7 +17,7 @@ export default function HomePage() {
             color: 'var(--color-ink-faint)',
             marginBottom: '0.75rem',
           }}>
-            Internal tool · Prototype
+            Internal tool · IAA&apos;s User Research Ops
           </p>
           <h1 style={{
             fontFamily: 'var(--font-display)',
@@ -42,8 +35,7 @@ export default function HomePage() {
             maxWidth: '540px',
             lineHeight: 1.65,
           }}>
-            A decision-support and operational tool for experienced UX researchers.
-            Start from &ldquo;What do I need to learn?&rdquo; — not &ldquo;What method do I want to use?&rdquo;
+            A decision-support and operational tool for UX research.
           </p>
         </div>
       </section>
@@ -52,36 +44,6 @@ export default function HomePage() {
       <section aria-label="Primary entry points" style={{ padding: '2.5rem 0' }}>
         <div className="page-container">
           <EntryCards />
-        </div>
-      </section>
-
-      {/* Method Library Quick Access */}
-      <section style={{
-        padding: '2rem 0 3rem',
-        borderTop: '1px solid var(--color-border)',
-      }}>
-        <div className="page-container">
-          <div style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            marginBottom: '1.25rem',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-          }}>
-            <h2 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1rem',
-              fontWeight: 400,
-              color: 'var(--color-ink-muted)',
-            }}>
-              Prototype methods
-            </h2>
-            <Link href="/methods" style={{ fontSize: '0.85rem', color: 'var(--color-accent)' }}>
-              View all methods →
-            </Link>
-          </div>
-          <MethodQuickLinks methods={protoMethods} />
         </div>
       </section>
     </main>

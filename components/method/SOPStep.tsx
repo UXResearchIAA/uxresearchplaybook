@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import type { SOPStep as SOPStepType } from '@/content/methods/types';
-import { useSOPProgress } from '@/contexts/SOPProgressContext';
 
 const PHASE_COLORS: Record<string, string> = {
   prepare:    '#1B6CA8',
@@ -13,23 +12,19 @@ const PHASE_COLORS: Record<string, string> = {
 };
 
 export function SOPStepCard({ step, index }: { step: SOPStepType; index: number }) {
-  const { checked, toggleItem } = useSOPProgress();
   const [expanded, setExpanded] = useState(false);
 
-  const stepChecked = checked[step.id] ?? new Set<number>();
-  const allChecked = step.checklist.length > 0 && stepChecked.size === step.checklist.length;
   const color = PHASE_COLORS[step.phase] ?? '#607090';
 
   return (
     <div
       id={`step-${step.id}`}
       style={{
-        border: `1px solid ${allChecked ? 'var(--color-success)' : 'var(--color-border)'}`,
-        borderLeft: `4px solid ${allChecked ? 'var(--color-success)' : color}`,
+        border: '1px solid var(--color-border)',
+        borderLeft: `4px solid ${color}`,
         borderRadius: '8px',
-        background: allChecked ? 'var(--color-success-dim)' : 'var(--color-surface)',
+        background: 'var(--color-surface)',
         overflow: 'hidden',
-        transition: 'border-color 0.2s, background 0.2s',
       }}
     >
       {/* Header */}
@@ -46,11 +41,10 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
           fontWeight: 700,
           fontFamily: 'var(--font-mono)',
           flexShrink: 0,
-          background: allChecked ? 'var(--color-success)' : color,
+          background: color,
           color: '#fff',
-          transition: 'background 0.2s',
         }}>
-          {allChecked ? '✓' : String(index + 1).padStart(2, '0')}
+          {String(index + 1).padStart(2, '0')}
         </div>
 
         <div style={{ flex: 1 }}>
@@ -60,8 +54,7 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
             fontWeight: 400,
             margin: '0 0 0.5rem',
             lineHeight: 1.3,
-            color: allChecked ? 'var(--color-success)' : 'var(--color-ink)',
-            transition: 'color 0.2s',
+            color: 'var(--color-ink)',
           }}>
             {step.title}
           </h3>
@@ -76,42 +69,35 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
         </div>
       </div>
 
-      {/* Checklist */}
+      {/* Checklist — visual only, no interactivity */}
       {step.checklist.length > 0 && (
         <div style={{
-          padding: '0 1.5rem 0 4.5rem',
+          padding: '0 1.5rem 1rem 4.5rem',
           borderTop: '1px solid var(--color-border)',
         }}>
-          <fieldset style={{ border: 'none', padding: '1rem 0', margin: 0 }}>
-            <legend className="sr-only">Step {step.id} checklist</legend>
+          <ul style={{ listStyle: 'none', padding: '0.75rem 0 0', margin: 0, display: 'flex', flexDirection: 'column', gap: '0' }}>
             {step.checklist.map((item, i) => (
-              <label key={i} style={{
+              <li key={i} style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '0.7rem',
-                padding: '0.45rem 0',
-                cursor: 'pointer',
+                gap: '0.6rem',
+                padding: '0.4rem 0',
                 borderBottom: i < step.checklist.length - 1 ? '1px solid var(--color-border)' : 'none',
               }}>
-                <input
-                  type="checkbox"
-                  checked={stepChecked.has(i)}
-                  onChange={() => toggleItem(step.id, i)}
-                  style={{
-                    width: '1rem',
-                    height: '1rem',
-                    marginTop: '2px',
-                    flexShrink: 0,
-                    accentColor: color,
-                    cursor: 'pointer',
-                  }}
-                  aria-label={item.text}
-                />
+                {/* Hollow square indicator */}
+                <span style={{
+                  display: 'inline-block',
+                  width: '12px',
+                  height: '12px',
+                  border: '1.5px solid var(--color-border-hi)',
+                  borderRadius: '2px',
+                  flexShrink: 0,
+                  marginTop: '3px',
+                }} aria-hidden="true" />
                 <div>
                   <span style={{
                     fontSize: '0.875rem',
-                    color: stepChecked.has(i) ? 'var(--color-ink-faint)' : 'var(--color-ink)',
-                    textDecoration: stepChecked.has(i) ? 'line-through' : 'none',
+                    color: 'var(--color-ink)',
                     lineHeight: 1.5,
                   }}>
                     {item.text}
@@ -128,9 +114,9 @@ export function SOPStepCard({ step, index }: { step: SOPStepType; index: number 
                     </p>
                   )}
                 </div>
-              </label>
+              </li>
             ))}
-          </fieldset>
+          </ul>
         </div>
       )}
 

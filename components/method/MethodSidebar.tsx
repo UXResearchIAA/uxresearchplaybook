@@ -1,14 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSOPProgress } from '@/contexts/SOPProgressContext';
 
-interface SectionLink {
+export interface SectionLink {
   id: string;
   label: string;
 }
 
-const SECTIONS: SectionLink[] = [
+const DEFAULT_SECTIONS: SectionLink[] = [
   { id: 'overview',    label: 'Overview'          },
   { id: 'at-a-glance', label: 'At a glance'       },
   { id: 'when-to-use', label: 'When to use'       },
@@ -22,21 +21,20 @@ const SECTIONS: SectionLink[] = [
   { id: 'sources',     label: 'Sources'           },
 ];
 
-const SOP_SECTION_IDS = new Set(['prepare', 'conduct', 'analyze', 'synthesize', 'share']);
+export default function MethodSidebar({
+  methodName,
+  sections,
+}: {
+  methodName: string;
+  sections?: SectionLink[];
+}) {
+  const SECTIONS = sections ?? DEFAULT_SECTIONS;
 
-export default function MethodSidebar({ methodName }: { methodName: string }) {
   // ── Scroll-based: which section is currently in view ──────────────────────
   const [active, setActive] = useState('overview');
 
   // ── Scroll-based: which sections have been scrolled past (for dot state) ──
   const [scrolledPast, setScrolledPast] = useState<Set<string>>(new Set());
-
-  // ── Whether the user has reached the Prepare section ──────────────────────
-  const [sopVisible, setSopVisible] = useState(false);
-
-  // ── Checklist-based progress from context ─────────────────────────────────
-  const { completedItems, totalItems } = useSOPProgress();
-  const sopProgress = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
 
   // Scrollspy: active section
   useEffect(() => {
@@ -61,6 +59,7 @@ export default function MethodSidebar({ methodName }: { methodName: string }) {
 
     els.forEach(el => obs.observe(el));
     return () => obs.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Scroll tracking: which sections have been scrolled past (for dot indicators)
@@ -77,26 +76,7 @@ export default function MethodSidebar({ methodName }: { methodName: string }) {
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // One-shot: show SOP progress panel once user reaches #prepare
-  useEffect(() => {
-    const el = document.getElementById('prepare');
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSopVisible(true);
-          obs.disconnect();
-        }
-      },
-      // Trigger when the top of #prepare enters the bottom 40% of the viewport
-      { rootMargin: '0px 0px -40% 0px', threshold: 0 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -122,65 +102,21 @@ export default function MethodSidebar({ methodName }: { methodName: string }) {
         {methodName}
       </p>
 
-      {/* SOP checklist progress — only visible once user reaches Prepare */}
-      {sopVisible && totalItems > 0 && (
-        <div style={{ marginBottom: '1rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-            <span style={{ fontSize: '0.72rem', color: 'var(--color-ink-faint)' }}>SOP progress</span>
-            <span style={{
-              fontSize: '0.72rem',
-              fontWeight: sopProgress === 100 ? 700 : 400,
-              color: sopProgress === 100 ? 'var(--color-success)' : 'var(--color-ink-faint)',
-            }}>
-              {sopProgress}%
-            </span>
-          </div>
-          <div style={{
-            height: '4px',
-            background: 'var(--color-border)',
-            borderRadius: '2px',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              height: '100%',
-              width: `${sopProgress}%`,
-              background: 'var(--color-success)',
-              borderRadius: '2px',
-              transition: 'width 0.25s ease',
-            }} />
-          </div>
-          <p style={{
-            fontSize: '0.68rem',
-            color: 'var(--color-ink-faint)',
-            margin: '0.3rem 0 0',
-            lineHeight: 1.3,
-          }}>
-            {completedItems} of {totalItems} tasks
-          </p>
-        </div>
-      )}
-
       {/* Section links */}
       <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {SECTIONS.map(section => {
           const isActive = active === section.id;
           const hasScrolledPast = scrolledPast.has(section.id);
-          const isSop = SOP_SECTION_IDS.has(section.id);
 
-          // Dot color:
-          // - Active: accent
-          // - SOP section that has been scrolled past: success green
-          // - Other scrolled-past sections: border (neutral)
-          // - Not yet visited: border (neutral)
           const dotColor = isActive
             ? 'var(--color-accent)'
-            : hasScrolledPast && isSop
-            ? 'var(--color-success)'
+            : hasScrolledPast
+            ? 'var(--color-border-hi)'
             : 'var(--color-border)';
 
           const dotBorder = isActive
             ? 'none'
-            : `1px solid ${hasScrolledPast && isSop ? 'var(--color-success)' : 'var(--color-border-hi)'}`;
+            : `1px solid ${hasScrolledPast ? 'var(--color-border-hi)' : 'var(--color-border-hi)'}`;
 
           return (
             <li key={section.id}>
